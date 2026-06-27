@@ -1,2 +1,2 @@
 # python_projects
-Trying some pythone coding
+Trying some python coding
