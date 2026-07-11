@@ -1,0 +1,48 @@
+import sys
+
+file_name = "todo_data.txt"
+todos = []
+
+try:
+    file = open(file_name, "r")
+    todos = file.readlines()
+    file.close()
+except FileNotFoundError:
+    pass
+
+print(todos)
+
+if len(sys.argv) >= 3 and sys.argv[1] == "add":
+    todos.append(f"{sys.argv[2]}\n")
+
+if len(sys.argv) >= 3 and sys.argv[1] == "remove":
+    try:
+        index_to_delete = int(sys.argv[2])
+        if index_to_delete > 0:
+            index_to_delete -= 1
+            del(todos[index_to_delete])
+        else:
+            print("Please enter a valid index to delete.")
+            sys.exit(1)
+    except Exception as e:
+        print(e)
+        sys.exit(1)
+
+print(todos)
+
+file = open(file_name, "w")
+file.writelines(todos)
+file.close()
+
+if len(todos) == 0:
+    print("You have no todos :)")
+else:  
+    print("\nHere's your ToDo list:\n")
+    for x in range(len(todos)):
+        print(f"{x + 1}. {todos[x]}", end="")
+
+
+print("\n*******************************\n")
+print(f"To view ToDos:\n{sys.argv[0]}")
+print(f"\nTo add a ToDo:\n{sys.argv[0]} add \"Clean Room\"\n")
+print(f"To remove or complete ToDo:\n{sys.argv[0]} remove 2\n")
